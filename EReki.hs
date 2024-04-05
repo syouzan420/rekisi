@@ -1,6 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
 module EReki where
 
 import System.Random (randomRIO)
+import qualified Data.Text as T
 
 type ERData = (Int,String)
 
@@ -97,4 +99,15 @@ main = do
   gl <- getLine
   let res = if gl==juns then "せいかい！！！" else "ちがいます！！！"
   putStrLn res
-  mapM_ (putStrLn . showERDatap . (!!) mondai) jun  
+  mapM_ (putStrLn . showERData . (!!) mondai) jun  
+
+reki :: Int -> IO T.Text
+reki i = do
+  mondai <- selectData i erekiData
+  let jun = makeJun mondai
+  let juns = concatMap show jun
+  let montx = T.intercalate "," $ map makeMonTex mondai
+  return (montx <> "=" <> T.pack juns)
+
+makeMonTex :: ERData -> T.Text
+makeMonTex (nen,koto) = T.pack (show nen <> "-" <> koto)
