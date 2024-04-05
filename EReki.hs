@@ -92,7 +92,7 @@ main = do
   mondai <- selectData 3 erekiData
   let jun = makeJun mondai
   let juns = concatMap show jun 
-  mapM_ putStrLn $ map (\(i,s) -> show i <> " :" <> s) $ zip [0,1..] (map snd mondai)
+  mapM_ (putStrLn . (\(i,s) -> show i <> " :" <> s)) $ zip [0,1..] (map snd mondai)
   putStrLn "古い順にならべてください"
   gl <- getLine
   let res = if gl==juns then "せいかい！！！" else "ちがいます！！！"
