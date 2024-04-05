@@ -62,6 +62,7 @@ erekiData = [(57,"奴国王が後漢から金印")
             ]
 
 sortNens :: [(Int,a)] -> [(Int,a)]
+sortNens [] = []
 sortNens ((x,a):xs) = 
     sortNens (smaller xs) <> [(x,a)] <> sortNens (larger xs)
   where smaller ls = [(p,q)|(p,q)<-ls,p<x]
